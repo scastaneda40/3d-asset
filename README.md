@@ -1,74 +1,57 @@
-# React + TypeScript + Vite
+# 3D Asset Viewer (React + TypeScript + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is an interactive React + TypeScript web application built with Vite.  
+It provides a performant interface for browsing, visualizing, and simulating operations on 3D models using modern front-end and WebGL technologies.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+The application demonstrates a scalable approach to managing and displaying 3D content within a React environment. It allows users to:
 
-## React Compiler
+- Browse and filter a set of sample 3D assets
+- Select individual models to preview in an interactive 3D scene
+- Adjust the level of detail (LOD) and simulate compression of models
+- Observe updates to model metadata such as polygon count and file size
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+The goal of this project is to illustrate how front-end systems can interact with 3D rendering libraries and simulate asynchronous, compute-heavy tasks such as model optimization.
 
-## Expanding the ESLint configuration
+## Technologies Used
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **React + TypeScript** – For component-driven UI and type safety
+- **Vite** – For fast builds and hot module replacement (HMR)
+- **@react-three/fiber** – React renderer for Three.js, enabling declarative 3D scenes
+- **@react-three/drei** – Utility components and hooks for common 3D operations
+- **Three.js** – Core 3D engine for geometry, lighting, and materials
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Core Concepts
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### 1. Reducer-Based State Management
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Implements `useReducer` to handle asset selection, filtering, and simulated compression events in a predictable and maintainable way.
+
+### 2. Concurrent UI Updates
+
+Uses React’s `useTransition` to keep the interface responsive during simulated background operations such as compression.
+
+### 3. 3D Rendering and Normalization
+
+Assets are either procedural geometries or imported GLTF models rendered in a consistent viewport. Imported models are normalized for scale and centered automatically to maintain visual consistency.
+
+### 4. Simulation of Asynchronous Jobs
+
+The compression workflow is simulated locally to represent how a front-end might trigger and track asynchronous compute tasks (e.g., decimation or texture compression) in a production system.
+
+## Running the Project
+
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server
+
+```bash
+ npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
-# 3d-asset
+4. Open the application in your browser
+   [http://localhost:5173](http://localhost:5173)
